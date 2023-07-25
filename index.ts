@@ -1,38 +1,43 @@
 export {}
-var fs = require('fs');
-const { Dropbox, Error, files } = require('dropbox');
-const request = require('request')
+const { Dropbox } = require('dropbox');
+const fs = require('fs')
+const path = require('path')
 require('dotenv').config();
-const token = process.env.ACCESS_TOKEN;
-const drop = new Dropbox({ accessToken: token });
-var filename = 'smiley.jpeg';
-var content = fs.readFileSync(filename);
-// fs.readFile(process.env.FILE_TO_UPLOAD, 'utf-8', (err, data) => {
-//     if (err)
-//         console.error(err);
-//     drop.filesUpload({ path: process.env.FILE_TO_UPLOAD, data })
-//         .then((response) => {
-//         console.log(response);
-//         console.log("Upload Successful");
-//     })
-//         .catch((uploadErr) => {
-//         console.log(uploadErr);
-//     });
-// });
-let options = {
-    method: "POST",
-    url: 'https://content.dropboxapi.com/2/files/upload',
-    headers: {
-      "Content-Type": "application/octet-stream",
-      "Authorization": "Bearer " + token,
-      "Dropbox-API-Arg": "{\"path\": \"/dropbox/"+filename+"\",\"mode\": \"overwrite\",\"autorename\": true,\"mute\": false}",
-    },
-    body:content
-};
 
-request(options,function(err: any, res: any, body: any){
-console.log("Err : " + err);
-console.log("res : " + res);
-console.log("body : " + body);    
+const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
+const uploadPath = `/upload/${process.env.FILE_TO_UPLOAD}`
+
+//Get the current account info
+dbx.usersGetCurrentAccount()
+    .then((response: any) => {
+    // console.log(response.result);
+    if(response.result.account_id){
+      console.log("Dropbox connection successful!");
+    }
 })
+    .catch((error: any) => {
+    console.error(error);
+});
 
+//Upload the file
+fs.readFile(path.join(__dirname, process.env.FILE_TO_UPLOAD), 'utf8', (err: never, contents: any) => {
+  if (err) {
+    console.error(err);
+  }
+
+  // This uploads the specified file to a folder called apiuploads of your dropbox
+  dbx.filesUpload({ path: uploadPath, contents })
+    .then((response: any) => {
+      console.log("File uploaded successfully!")
+      console.log(response);
+    })
+    .catch((error: any) => {
+      if (error.response && error.response.status === 400) {
+        console.error('Bad request. Check your Dropbox API parameters:', error);
+      } else if (error.response && error.response.status === 409) {
+        console.error('File already exists at the destination path:', error);
+      } else {
+        console.error('Error uploading the file:', error);
+      }
+})
+});
