@@ -4,6 +4,7 @@ const { Dropbox } = require('dropbox');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
+//Basic Dropbox Settings
 const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
 const uploadPath = `/upload/${process.env.FILE_TO_UPLOAD}`;
 //Get the current account info
@@ -17,16 +18,20 @@ dbx.usersGetCurrentAccount()
     .catch((error) => {
     console.error(error);
 });
+//Check if upload file path exists in environment
 if (process.env.FILE_TO_UPLOAD) {
     uploadFile(process.env.FILE_TO_UPLOAD, uploadPath);
 }
+//Check if upload folder path exists in environnment
 if (process.env.FOLDER_TO_UPLOAD) {
-    const files = getFilesInFolder(process.env.FOLDER_TO_UPLOAD);
-    for (let file of files) {
-        const uploadFolderPath = `/upload/${process.env.FOLDER_TO_UPLOAD}/${file}`;
+    const folderPath = process.env.FOLDER_TO_UPLOAD;
+    const files = getFilesInFolder(folderPath);
+    for (const file of files) {
+        const uploadFolderPath = `/upload/${folderPath}/${path.basename(file)}`;
         uploadFile(file, uploadFolderPath);
     }
 }
+//Function to get files stored in the folder to be uploaded
 function getFilesInFolder(folderPath) {
     const files = [];
     const items = fs.readdirSync(folderPath);
@@ -39,6 +44,7 @@ function getFilesInFolder(folderPath) {
     }
     return files;
 }
+//Function to upload single file
 function uploadFile(filename, filepath) {
     fs.readFile(path.join(__dirname, filename), 'utf8', (err, contents) => {
         if (err) {
