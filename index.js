@@ -17,26 +17,49 @@ dbx.usersGetCurrentAccount()
     .catch((error) => {
     console.error(error);
 });
-//Upload the file
-fs.readFile(path.join(__dirname, process.env.FILE_TO_UPLOAD), 'utf8', (err, contents) => {
-    if (err) {
-        console.error(err);
+if (process.env.FILE_TO_UPLOAD) {
+    uploadFile(process.env.FILE_TO_UPLOAD, uploadPath);
+}
+if (process.env.FOLDER_TO_UPLOAD) {
+    const files = getFilesInFolder(process.env.FOLDER_TO_UPLOAD);
+    for (let file of files) {
+        const uploadFolderPath = `/upload/${process.env.FOLDER_TO_UPLOAD}/${file}`;
+        uploadFile(file, uploadFolderPath);
     }
-    // This uploads the specified file to a folder called apiuploads of your dropbox
-    dbx.filesUpload({ path: uploadPath, contents })
-        .then((response) => {
-        console.log("File uploaded successfully!");
-        console.log(response);
-    })
-        .catch((error) => {
-        if (error.response && error.response.status === 400) {
-            console.error('Bad request. Check your Dropbox API parameters:', error);
+}
+function getFilesInFolder(folderPath) {
+    const files = [];
+    const items = fs.readdirSync(folderPath);
+    for (const item of items) {
+        const itemPath = path.join(folderPath, item);
+        const stats = fs.statSync(itemPath);
+        if (stats.isFile()) {
+            files.push(itemPath);
         }
-        else if (error.response && error.response.status === 409) {
-            console.error('File already exists at the destination path:', error);
+    }
+    return files;
+}
+function uploadFile(filename, filepath) {
+    fs.readFile(path.join(__dirname, filename), 'utf8', (err, contents) => {
+        if (err) {
+            console.error(err);
         }
-        else {
-            console.error('Error uploading the file:', error);
-        }
+        // This uploads the specified file to a folder called apiuploads of your dropbox
+        dbx.filesUpload({ path: filepath, contents })
+            .then((response) => {
+            console.log("File uploaded successfully!");
+            console.log(response);
+        })
+            .catch((error) => {
+            if (error.response && error.response.status === 400) {
+                console.error('Bad request. Check your Dropbox API parameters:', error);
+            }
+            else if (error.response && error.response.status === 409) {
+                console.error('File already exists at the destination path:', error);
+            }
+            else {
+                console.error('Error uploading the file:', error);
+            }
+        });
     });
-});
+}
