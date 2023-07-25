@@ -4,6 +4,9 @@ const fs = require('fs')
 const path = require('path')
 require('dotenv').config();
 
+//COMPILE THE TYPESCRIPT.
+console.log("Please compile the TypeScript code to generate the Node.js file before running.");
+
 //Basic Dropbox Settings
 const dbx = new Dropbox({ accessToken: process.env.ACCESS_TOKEN });
 const uploadPath = `/upload/${process.env.FILE_TO_UPLOAD}`
@@ -60,7 +63,7 @@ function uploadFile(filename: string|undefined, filepath: string|undefined){
       console.error(err);
     }
   
-    // This uploads the specified file to a folder called apiuploads of your dropbox
+    // This uploads the specified file to a folder called apiuploads on your dropbox
     dbx.filesUpload({ path: filepath, contents })
       .then((response: any) => {
         console.log("File uploaded successfully!")
