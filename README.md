@@ -51,7 +51,7 @@ If there are any issues with the file upload process, the application will displ
 
 ## Contributing
 
-This is an open-source project, and contributions from the community are welcome! If you find any issues or have ideas for improvements, feel free to open an issue or submit a pull request. For guidelines on contributing, please refer to the CONTRIBUTING.md file. Please note, this project is licensed under the <a href="https://opensource.org/license/mit/">MIT License.</a>
+This is an open-source project, and contributions from the community are welcome! If you find any issues or have ideas for improvements, feel free to open an issue or submit a pull request. For guidelines on contributing, please refer to the CONTRIBUTING.md file. Please note, this project is licensed under the <a href="https://opensource.org/license/mit/">MIT</a> license.
 
 ## Notes
 
