@@ -51,7 +51,7 @@ If there are any issues with the file upload process, the application will displ
 
 ## Contributing
 
-This is an open-source project, and contributions from the community are welcome! If you find any issues or have ideas for improvements, feel free to open an issue or submit a pull request. For guidelines on contributing, please refer to the CONTRIBUTING.md file.
+This is an open-source project, and contributions from the community are welcome! If you find any issues or have ideas for improvements, feel free to open an issue or submit a pull request. For guidelines on contributing, please refer to the CONTRIBUTING.md file. Please note, this project is licensed under the <a href="https://opensource.org/license/mit/">MIT License.</a>
 
 ## Notes
 
@@ -59,6 +59,6 @@ This is an open-source project, and contributions from the community are welcome
 - Ensure that the file you want to upload is in the root directory of the project, or adjust the file path in the `.env` file accordingly.
 - Ensure you have enabled 'files.content.write' in your dropbox settings to avoid missing scope errors.
 
-That's it! Now you have a simple Node.js application to upload files to Dropbox using the Dropbox API. If you encounter any issues or have questions, feel free to contact me <a href="mailto:folarinraphael@outlook.com">here</a>.
+That's it! If you encounter any issues or have questions, feel free to contact me <a href="mailto:folarinraphael@outlook.com">here</a>.
 
 Enjoy!!!!
