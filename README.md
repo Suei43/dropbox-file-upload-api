@@ -1,4 +1,4 @@
-# Dropbox File/Folder Upload API with Node.js
+# Dropbox File/Folder Upload API with Node.js 😸
 
 This is a simple open-source Node.js application that allows users to upload files to Dropbox using the Dropbox API by <a href="github.com/Suei43">your's truly</a>. Users are required to add the files they want to upload to the root directory of the project and create a `.env` file containing their access token and the name of the file they want to upload.
 
