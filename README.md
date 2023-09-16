@@ -1,6 +1,6 @@
-# Dropbox File/Folder Upload API with Node.js 😸
+# File/Folder Upload API with Node.js 
 
-This is a simple open-source Node.js application that allows users to upload files to Dropbox using the Dropbox API by <a href="github.com/Suei43">your's truly</a>. Users are required to add the files they want to upload to the root directory of the project and create a `.env` file containing their access token and the name of the file they want to upload.
+This is a simple Node.js application that allows users to upload files to dropbox using the Dropbox API by <a href="github.com/darksuei">your's truly</a>. Users are required to add the files they want to upload to the root directory of the project and create a `.env` file containing their access token and the name of the file they want to upload [ view the .env.example or view the config below].
 
 ## Prerequisites
 
@@ -12,14 +12,14 @@ Before running this application, you need the following:
 
 ## Installation
 
-1. Clone this repository or download the source code to your local machine.
+1. Clone this repository.
 
-2. Open a terminal or command prompt and navigate to the project's root directory.
+2. Open a terminal and navigate to the project's root directory.
 
 3. Install the project dependencies by running the following command:
 
 ```bash
-npm install
+npm install 
 ```
 
 ## Configuration
@@ -35,6 +35,7 @@ FILE_TO_UPLOAD = your_file.extension
 
 Replace `ADD_YOUR_DROPBOX_ACCESS_TOKEN_HERE` with your Dropbox app access token and `your_file.extension` with the name of the file you want to upload (e.g., `passport.jpg`).
 
+Note: To upload a folder use `FOLDER_TO_UPLOAD` instead.
 ## Usage
 
 After configuring the `.env` file with your access token and file name, you can now upload the file to Dropbox. Run the following command in the project's root directory:
@@ -45,19 +46,10 @@ node index.js
 
 The `index.js` script will read the file specified in the `.env` file and upload it to the root directory of your Dropbox account.
 
-## Error Handling
+## Errors 
 
 If there are any issues with the file upload process, the application will display appropriate error messages. Common errors might include invalid access tokens, missing files, or insufficient permissions.
 
-## Contributing
-
-This is an open-source project, and contributions from the community are welcome! If you find any issues or have ideas for improvements, feel free to open an issue or submit a pull request. For guidelines on contributing, please refer to the CONTRIBUTING.md file. Please note, this project is licensed under the <a href="https://opensource.org/license/mit/">MIT</a> license.
-
-## Notes
-
-- Keep your `.env` file containing the access token private and never share it publicly or include it in version control systems.
-- Ensure that the file you want to upload is in the root directory of the project, or adjust the file path in the `.env` file accordingly.
-- Ensure you have enabled 'files.content.write' in your dropbox settings to avoid missing scope errors.
 
 That's it! If you encounter any issues or have questions, feel free to contact me <a href="mailto:folarinraphael@outlook.com">here</a>.
 
